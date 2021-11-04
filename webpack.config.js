@@ -71,7 +71,7 @@ const config = {
       patterns: [{ from: "public", to: "." }],
     }),
   ],
-  mode: "production" // production || development
+  mode: "development" // production || development
 };
 
 module.exports = config;
