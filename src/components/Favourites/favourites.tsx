@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import axios from 'axios';
 
-export const Favourites = () => {
+export const Favourites = (props: { watchers: any, setWatchers: any }) => {
+  const { watchers, setWatchers } = props
   //const [snowing, setSnowing] = React.useState(true);
 
   // const onClick = () => {
@@ -9,21 +10,13 @@ export const Favourites = () => {
   // };
 
   const [streamerName, setStreamerName] = useState("")
-  const [watchers, setWatchers]: any = useState([])
+
 
   const handleChange = (e: any) => {
     setStreamerName(e.target.value)
   }
   useEffect(() => {
-    let interval = setInterval(() => {
-      chrome.notifications.create(
-        {
-          type: "basic",
-          title: "Your streamer is now online.",
-          message: `is online !`,
-          iconUrl: "./icon16.png"
-        }
-      )
+    setInterval(() => {
       for (let index = 0; index < watchers.length; index++) {
         axios.get("https://chaturbate.com/api/panel_context/" + watchers[index])
           .then(function (response) {
@@ -47,7 +40,7 @@ export const Favourites = () => {
       }
     }, 5000);
     // return () => clearInterval(interval);
-  }, [watchers]);
+  });
 
   const onClick = () => {
     axios.get("https://chaturbate.com/api/panel_context/" + streamerName)

@@ -38,9 +38,10 @@
   }
 }
 
-.creator {
-  margin-bottom: 0;
+.creator, .descr, .mention {
+  margin: auto;
 }
+
 .mention {
-  margin-top: 0;
+  margin-bottom: 5%;
 }

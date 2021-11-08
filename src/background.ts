@@ -45,18 +45,18 @@ chrome.tabs.onUpdated.addListener(function _(tabId, changeInfo, tab) {
       chrome.tabs.executeScript({file: './content.tsx'}, () => { console.log("Executing Script...")})
     }
   }
-}); 
+});
 */
 
 /* ADBLOCKING */
 
 // https://blocklistproject.github.io/Lists/
 
-import defaultFilters from "./list";
+// import defaultFilters from "./list";
 
-chrome.webRequest.onBeforeRequest.addListener(() => {
-  return { cancel: true }
-}, { urls: defaultFilters }, ["blocking"])
+// chrome.webRequest.onBeforeRequest.addListener(() => {
+//   return { cancel: true }
+// }, { urls: defaultFilters }, ["blocking"])
 
 // chrome.notifications.create(
 //   {
@@ -67,3 +67,5 @@ chrome.webRequest.onBeforeRequest.addListener(() => {
 //   }
 // )
 // chrome.notifications.onClicked.addListener(onClick)
+
+console.log("salut !")
