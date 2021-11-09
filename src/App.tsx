@@ -25,10 +25,11 @@ const App = () => {
         </>
           :
           <>
-            {watchers.map((element: any) => { <p>{watchers[element]}</p> })}
+            {watchers.map((element: any) => (<p>{element}</p>))}
           </>
         }
       </body>
+      <footer>v0.1</footer>
     </div>
   );
 };
