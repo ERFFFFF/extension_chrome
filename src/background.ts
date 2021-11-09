@@ -93,7 +93,6 @@ setInterval(() => {
       .then(function (response) {
         if (response.status == 200) {
           if (response.data.detail != "No app running") {
-            console.log("al frr")
             chrome.notifications.create(
               {
                 type: "basic",
