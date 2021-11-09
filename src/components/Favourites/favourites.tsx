@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from 'axios';
 
 export const Favourites = (props: { watchers: any, setWatchers: any }) => {
-  const { watchers, setWatchers } = props
-  //const [snowing, setSnowing] = React.useState(true);
-
-  // const onClick = () => {
-  //   chrome.runtime.sendMessage({ type: "GET_STATUS" });
-  // };
+  const { watchers, setWatchers } = props;
 
   const [streamerName, setStreamerName] = useState("")
 
@@ -15,38 +10,16 @@ export const Favourites = (props: { watchers: any, setWatchers: any }) => {
   const handleChange = (e: any) => {
     setStreamerName(e.target.value)
   }
-  useEffect(() => {
-    setInterval(() => {
-      for (let index = 0; index < watchers.length; index++) {
-        axios.get("https://chaturbate.com/api/panel_context/" + watchers[index])
-          .then(function (response) {
-            if (response.status == 200) {
-              if (response.data.detail != "No app running") {
-                chrome.notifications.create(
-                  {
-                    type: "basic",
-                    title: "Your streamer is now online.",
-                    message: `${watchers[index]} is online !`,
-                    iconUrl: "./icon16.png"
-                  }
-                )
-              }
-            }
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          })
-      }
-    }, 5000);
-    // return () => clearInterval(interval);
-  });
 
   const onClick = () => {
     axios.get("https://chaturbate.com/api/panel_context/" + streamerName)
       .then(function (response) {
         if (response.status == 200) {
-          setWatchers([...watchers, streamerName])
+          setWatchers([...watchers, streamerName], async () => {
+            // je sais pas pk sa marche pas
+            chrome.runtime.sendMessage({ type: "GET_WATCHERS", watchers: watchers })
+            chrome.runtime.sendMessage({ type: "GET_JSP" })
+          })
           chrome.notifications.create(
             {
               type: "basic",

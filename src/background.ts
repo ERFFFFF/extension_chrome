@@ -3,12 +3,14 @@
 // This file is ran as a background script
 //console.log("Hello from background script!")
 
+import axios from 'axios';
+import { MessageType } from "./types";
+
 // pour que sa marche, (npm start + ctrl s + refresh button sur la page des extensions)
 // chrome.tabs.onActivated.addListener(tab => {
 //   console.log(tab)
 // })
 /*
-import { MessageType } from "./types";
 
 chrome.runtime.onMessage.addListener((message: MessageType) => {
   switch (message.type) {
@@ -68,4 +70,44 @@ chrome.tabs.onUpdated.addListener(function _(tabId, changeInfo, tab) {
 // )
 // chrome.notifications.onClicked.addListener(onClick)
 
-console.log("salut !")
+//setInterval(() => console.log("saloppe"), 3000)
+var watchers: any = []
+chrome.runtime.onMessage.addListener((message: MessageType) => {
+  switch (message.type) {
+    case "GET_WATCHERS":
+      console.log("watchers => ", message.watchers)
+      watchers = message.watchers
+      break;
+    case "GET_JSP":
+      console.log("JSP frr")
+      break;
+    default:
+      break;
+  }
+});
+
+setInterval(() => {
+  console.log("watchers numbers => ", watchers)
+  for (let index = 0; index < watchers.length; index++) {
+    axios.get("https://chaturbate.com/api/panel_context/" + watchers[index])
+      .then(function (response) {
+        if (response.status == 200) {
+          if (response.data.detail != "No app running") {
+            console.log("al frr")
+            chrome.notifications.create(
+              {
+                type: "basic",
+                title: "Your streamer is now online.",
+                message: `${watchers[index]} is online !`,
+                iconUrl: "./icon16.png"
+              }
+            )
+          }
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+}, 5000);
