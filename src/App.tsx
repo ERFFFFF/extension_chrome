@@ -12,7 +12,7 @@ const App = () => {
     chrome.runtime.onMessage.addListener((message: MessageType) => {
       switch (message.type) {
         case "REFRESH_UI_WATCHERS":
-          setWatchers([message.watchers])
+          setWatchers(message.watchers)
           break;
         case "GET_JSP":
           console.log("JSP frr")
@@ -43,7 +43,6 @@ const App = () => {
           <>
             <ul>
               {watchers.map((element: any) => { return (<li key={element}>{element}</li>) })}
-              <li>watchers</li>
             </ul>
           </>
         }
