@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from 'axios';
+const env = require('/env.json');
 
-export const Favourites = (props: { watchers: any, setWatchers: any }) => {
-  const { watchers, setWatchers } = props;
+export const Favourites = () => {
 
   const [streamerName, setStreamerName] = useState("")
-
 
   const handleChange = (e: any) => {
     setStreamerName(e.target.value)
   }
 
-  useEffect(() => {
-    chrome.runtime.sendMessage({ type: "GET_WATCHERS", watchers: watchers })
-  }, [watchers])
-
   const onClick = () => {
-    axios.get("https://chaturbate.com/api/panel_context/" + streamerName)
+    axios.get(env.URL + streamerName)
       .then(function (response) {
         if (response.status == 200) {
-          setWatchers([...watchers, streamerName])
+          chrome.runtime.sendMessage({ type: "ADD_WATCHER", watcher: streamerName })
           chrome.notifications.create(
             {
               type: "basic",

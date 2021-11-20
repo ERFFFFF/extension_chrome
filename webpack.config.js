@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+require('dotenv').config()
 
 const config = {
   entry: {
@@ -61,7 +62,7 @@ const config = {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     alias: {
       "react-dom": "@hot-loader/react-dom",
-    },
+    }
   },
   devServer: {
     contentBase: "./dist",

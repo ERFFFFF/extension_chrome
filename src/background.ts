@@ -5,13 +5,15 @@
 
 import axios from 'axios';
 import { MessageType } from "./types";
+const env = require('/env.json');
 
-var watchers: any = []
+var watchers: any = env.watchers
+console.log("tqt => ", watchers)
 chrome.runtime.onMessage.addListener((message: MessageType) => {
   switch (message.type) {
-    case "GET_WATCHERS":
-      console.log("watchers => ", message.watchers)
-      watchers = message.watchers
+    case "ADD_WATCHER":
+      watchers.push(message.watcher)
+      chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
       break;
     case "GET_JSP":
       console.log("JSP frr")
@@ -24,14 +26,15 @@ chrome.runtime.onMessage.addListener((message: MessageType) => {
 setInterval(() => {
   console.log("watchers numbers => ", watchers)
   for (let index = 0; index < watchers.length; index++) {
-    axios.get("https://chaturbate.com/api/panel_context/" + watchers[index])
+    console.log("watchers id => ", watchers[index])
+    axios.get(env.URL + watchers[index])
       .then(function (response) {
         if (response.status == 200) {
           if (response.data.detail != "No app running") {
             chrome.notifications.create(
               {
                 type: "basic",
-                title: "Your streamer is now online.",
+                title: "Shhhhhhhhhh",
                 message: `${watchers[index]} is online !`,
                 iconUrl: "./icon16.png"
               }
@@ -44,4 +47,9 @@ setInterval(() => {
         console.log(error);
       })
   }
-}, 5000);
+}, 600000);
+
+setInterval(() => {
+  chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
+}, 1)
+// 1 sec = 1000
