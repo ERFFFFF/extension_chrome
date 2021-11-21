@@ -27,19 +27,17 @@ setInterval(() => {
   console.log("watchers numbers => ", watchers)
   for (let index = 0; index < watchers.length; index++) {
     console.log("watchers id => ", watchers[index])
-    axios.get(env.URL + watchers[index])
+    axios.get(env.URL_USER_CONNECTED + watchers[index])
       .then(function (response) {
         if (response.status == 200) {
-          if (response.data.detail != "No app running") {
-            chrome.notifications.create(
-              {
-                type: "basic",
-                title: "Shhhhhhhhhh",
-                message: `${watchers[index]} is online !`,
-                iconUrl: "./icon16.png"
-              }
-            )
-          }
+          chrome.notifications.create(
+            {
+              type: "basic",
+              title: "Shhhhhhhhhh",
+              message: `${watchers[index]} is online !`,
+              iconUrl: "./icon16.png"
+            }
+          )
         }
       })
       .catch(function (error) {

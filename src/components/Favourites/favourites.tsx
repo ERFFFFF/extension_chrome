@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import axios from 'axios';
 const env = require('/env.json');
-
 export const Favourites = () => {
 
   const [streamerName, setStreamerName] = useState("")
@@ -11,7 +10,7 @@ export const Favourites = () => {
   }
 
   const onClick = () => {
-    axios.get(env.URL + streamerName)
+    axios.get(env.URL_USER_EXIST + streamerName)
       .then(function (response) {
         if (response.status == 200) {
           chrome.runtime.sendMessage({ type: "ADD_WATCHER", watcher: streamerName })
@@ -20,7 +19,7 @@ export const Favourites = () => {
               type: "basic",
               title: "Your streamer is now added to the list.",
               message: `${streamerName} is added to the watcher list !`,
-              iconUrl: "./icon16.png"
+              iconUrl: "./img.png"
             }
           )
         }
