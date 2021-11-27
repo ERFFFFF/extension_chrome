@@ -5,13 +5,13 @@
   "version": "1.1.0",
   "icons": {
     "16": "bonk.png",
-    "48": "icon48.png",
+    "48": "bonk.png",
     "128": "icon128.png"
   },
   "browser_action": {
     "default_icon": {
       "16": "bonk.png",
-      "48": "icon48.png"
+      "48": "bonk.png"
     },
     "default_popup": "popup.html"
   },
@@ -33,14 +33,6 @@
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [
-    "accessibilityFeatures.modify",
-    "accessibilityFeatures.read",
-    "tabs",
-    "https://www.google.com/*",
-    "activeTab",
-    "webRequest",
-    "webRequestBlocking",
-    "<all_urls>",
     "notifications",
     "storage"
   ]
