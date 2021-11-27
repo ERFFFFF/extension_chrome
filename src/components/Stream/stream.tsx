@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import axios from 'axios';
 const env = require('/env.json');
-export const Favourites = () => {
+export const Stream = () => {
 
   const [streamerName, setStreamerName] = useState("")
 
@@ -19,7 +19,7 @@ export const Favourites = () => {
               type: "basic",
               title: "Your streamer is now added to the list.",
               message: `${streamerName} is added to the watcher list !`,
-              iconUrl: "./img.png"
+              iconUrl: "./bonk.png"
             }
           )
         }

@@ -32,7 +32,7 @@ setInterval(() => {
               type: "basic",
               title: "Shhhhhhhhhh",
               message: `${watchers[index]} is online !`,
-              iconUrl: "./img.png",
+              iconUrl: "./bonk.png",
             }
           )
           chrome.notifications.onClicked.addListener(() => {
@@ -45,7 +45,7 @@ setInterval(() => {
         console.log(error);
       })
   }
-}, 600000);
+}, 10000);
 //600000
 setInterval(() => {
   chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });

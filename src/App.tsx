@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Favourites } from "./components/Favourites/favourites";
+import { Stream } from "./components/Stream/stream";
 import { MessageType } from "./types";
 import "./App.css";
 
@@ -37,7 +37,7 @@ const App = () => {
           </p>
           <p className="creator">Extension created by <a className="App-link" href="https://github.com/ERFFFFF">ERFFFFF</a>.</p>
           <p className="mention">App created thanks to the project of <a className="App-link" href="https://github.com/sivertschou/snow-extension">sivertschou</a></p>
-          <Favourites></Favourites>
+          <Stream></Stream>
         </>
           :
           <>
