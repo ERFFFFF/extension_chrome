@@ -27,7 +27,7 @@ setInterval(() => {
     axios.get(env.URL_USER_CONNECTED + watchers[index])
       .then(function (response) {
         if (response.status == 200) {
-          chrome.notifications.create(
+          chrome.notifications.create(watchers[index],
             {
               type: "basic",
               title: "Shhhhhhhhhh",
@@ -35,9 +35,15 @@ setInterval(() => {
               iconUrl: "./bonk.png",
             }
           )
-          chrome.notifications.onClicked.addListener(() => {
-            window.open(env.URL_STREAM + watchers[index])
-          })
+          // if there is no event on the notif, create one
+          if (!chrome.notifications.onClicked.hasListeners()) {
+            chrome.notifications.onClicked.addListener(
+              function redirect() {
+                window.open(env.URL_STREAM + watchers[index])
+              })
+          }
+          // delete the notification
+          chrome.notifications.clear(watchers[index])
         }
       })
       .catch(function (error) {
@@ -45,7 +51,10 @@ setInterval(() => {
         console.log(error);
       })
   }
-}, 10000);
+  // chrome.notifications.getAll((notifications) => {
+  //   console.log(notifications)
+  // })
+}, 600000);
 //600000
 setInterval(() => {
   chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
