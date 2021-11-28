@@ -61,7 +61,7 @@ const config = {
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     alias: {
       "react-dom": "@hot-loader/react-dom",
-    },
+    }
   },
   devServer: {
     contentBase: "./dist",
@@ -71,7 +71,7 @@ const config = {
       patterns: [{ from: "public", to: "." }],
     }),
   ],
-  mode: "production" // production || development
+  mode: "development" // production || development
 };
 
 module.exports = config;

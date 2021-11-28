@@ -30,3 +30,20 @@ After the project has been built, a directory named `dist` has been created. You
 
 
 If the manifest/code is modified, you need to build again the project with `npm run-script build`
+
+Configuration File
+-------------------------
+
+Create the configuration file at the root of the project and name it `env.json` with the following data :
+```
+{
+  "URL_USER_CONNECTED": "https://cbjpeg.stream.highwebmedia.com/stream?room=",
+  "URL_USER_EXIST": "https://chaturbate.com/api/panel_context/",
+  "URL_STREAM": "https://chaturbate.com/",
+  "watchers": [
+    "STREAMER_NAME_1",
+    "STREAMER_NAME_2",
+    "STREAMER_NAME_3"
+  ]
+}
+```
