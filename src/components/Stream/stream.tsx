@@ -1,5 +1,9 @@
 import React, { useState } from "react"
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react'
 const env = require('/env.json');
 export const Stream = () => {
 
@@ -31,9 +35,11 @@ export const Stream = () => {
   };
   return (
     <>
-      <div className="buttonContainer">
-        <input type="text" placeholder="Streamer name..." value={streamerName} onChange={handleChange} />
-        <button onClick={onClick}>Validate</button>
+      <div className="buttonContainer" style={{ color: 'red' }}>
+        <TextField id="standard-basic" label="Streamer name" variant="standard" placeholder="ex: madnessalise" value={streamerName} onChange={handleChange} />
+        <Button variant="contained" color="success" size="small" onClick={onClick}>
+          ADD
+        </Button>
       </div >
     </>
   );
