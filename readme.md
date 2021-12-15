@@ -40,10 +40,5 @@ Create the configuration file at the root of the project and name it `env.json` 
   "URL_USER_CONNECTED": "https://cbjpeg.stream.highwebmedia.com/stream?room=",
   "URL_USER_EXIST": "https://chaturbate.com/api/panel_context/",
   "URL_STREAM": "https://chaturbate.com/",
-  "watchers": [
-    "STREAMER_NAME_1",
-    "STREAMER_NAME_2",
-    "STREAMER_NAME_3"
-  ]
 }
 ```
