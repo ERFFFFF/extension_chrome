@@ -58,7 +58,6 @@ const App = () => {
             sx={{
               width: "100%",
               maxWidth: 360,
-              bgcolor: "background.paper",
               position: "relative",
               overflow: "auto",
               maxHeight: 300,
@@ -95,7 +94,7 @@ const App = () => {
           </List>
         }
       </body>
-      <footer>v0.2</footer>
+      <footer className='App-footer'><span>v0.2</span></footer>
     </div >
   );
 };
