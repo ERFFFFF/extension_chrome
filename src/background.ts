@@ -65,5 +65,5 @@ setInterval(() => {
   // chrome.notifications.getAll((notifications) => {
   //   console.log(notifications)
   // })
-}, 5000);
+}, 600000);
 //600000
