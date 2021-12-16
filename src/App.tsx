@@ -13,7 +13,7 @@ import "./App.css";
 
 const App = () => {
   const [render, setRender] = useState(true)
-  const [watchers, setWatchers]: any = useState([])
+  const [watchers, setWatchers]: any = useState('')
 
   useEffect(() => {
     // update every miliseconds # to the backgound send the message
@@ -32,6 +32,10 @@ const App = () => {
   }, [])
   const onClick = () => {
     setRender(!render)
+  };
+  const onChange = (key: any, index: any) => {
+    setWatchers(!Boolean(Object.values(watchers)[index]))
+    //Object.values(watchers)[index] = !Boolean(Object.values(watchers)[index])
   };
   const deleteElement = (element: string) => {
     chrome.runtime.sendMessage({ type: "DELETE_WATCHER", watcher: element })
@@ -66,24 +70,26 @@ const App = () => {
             {
               <li>
                 <ul>
-                  {watchers.map((element: any) => (
-                    <ListItem key={`${element}`} secondaryAction={
-                      <IconButton edge="end" aria-label="delete" onClick={() => { deleteElement(element) }} color="error">
-                        <DeleteIcon />
-                      </IconButton>
-                    }>
-                      <ListItemText primary={`${element}`} />
-                      <Switch
-                        disabled
-                        edge="end"
-                        //onChange={}
-                        checked={true}
-                        inputProps={{
-                          'aria-labelledby': 'switch-list-label-wifi',
-                        }}
-                      />
-                    </ListItem>
-                  ))}
+                  {
+                    Object.keys(watchers).map((key, index) => (
+                      <ListItem key={`${key}`} secondaryAction={
+                        <IconButton edge="end" aria-label="delete" onClick={() => { deleteElement(key) }} color="error">
+                          <DeleteIcon />
+                        </IconButton>
+                      }>
+                        <ListItemText primary={`${key}`} />
+                        <Switch
+                          // disabled
+                          edge="end"
+                          onChange={() => { onChange(key, index) }}
+                          checked={Boolean(Object.values(watchers)[index])}
+                          inputProps={{
+                            'aria-labelledby': 'switch-list-label-wifi',
+                          }}
+                        />
+                      </ListItem>
+                    ))
+                  }
                 </ul>
               </li>
             }

@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((message: MessageType) => {
   switch (message.type) {
     case "ADD_WATCHER":
       //watchers.push(message.watcher)
-      chrome.storage.sync.set({ [message.watcher]: "true" }, function () {
+      chrome.storage.sync.set({ [message.watcher]: true }, function () {
         console.log('Watcher : ' + message.watcher + ' added !');
       });
       chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
@@ -32,30 +32,29 @@ chrome.runtime.onMessage.addListener((message: MessageType) => {
 
 setInterval(() => {
   chrome.storage.sync.get(null, function (result) {
-    //watchers = Object.keys(result)
-    watchers = Array.from(JSON.stringify(result).replace('{', '').replace('}', ''));
-    //watchers = Object(result).content;
-
-    // it is shown as a string with commas, but it is in reality an array.
-    console.log('Value of everything 1 is ' + watchers);
+    watchers = result;
+    Object.keys(result).map(function (key, index) {
+      console.log('result => ', result)
+      console.log('key => ', key)
+      console.log('index => ', index)
+      console.log('value => ', Object.values(result)[index])
+      console.log('value 2 => ', !Object.values(result)[index])
+    });
+    chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
   });
-  chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
-
 }, 1000)
 // 1 sec = 1000ms
 
 setInterval(() => {
-  for (let index = 0; index < watchers.length; index++) {
-    console.log(watchers.length)
-    console.log(watchers[index])
-    axios.get(env.URL_USER_CONNECTED + watchers[index])
-      .then(function (response) {
+  for (const [key] of Object.entries(watchers)) {
+    axios.get(env.URL_USER_CONNECTED + watchers[key])
+      .then(function (response: any) {
         if (response.status == 200) {
-          chrome.notifications.create(watchers[index],
+          chrome.notifications.create(watchers[key],
             {
               type: "basic",
               title: "Shhhhhhhhhh",
-              message: `${watchers[index]} is online !`,
+              message: `${watchers[key]} is online !`,
               iconUrl: "./bonk.png",
             }
           )
@@ -63,14 +62,14 @@ setInterval(() => {
           if (!chrome.notifications.onClicked.hasListeners()) {
             chrome.notifications.onClicked.addListener(
               function redirect() {
-                window.open(env.URL_STREAM + watchers[index])
+                window.open(env.URL_STREAM + watchers[key])
               })
           }
           // delete the notification
-          chrome.notifications.clear(watchers[index])
+          chrome.notifications.clear(watchers[key])
         }
       })
-      .catch(function (error) {
+      .catch(function (error: any) {
         // handle error
         console.log(error);
       })
