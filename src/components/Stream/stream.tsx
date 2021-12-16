@@ -36,8 +36,31 @@ export const Stream = () => {
   return (
     <>
       <div className="buttonContainer" style={{ color: 'red' }}>
-        <TextField id="standard-basic" label="Streamer name" variant="standard" placeholder="ex: madnessalise" value={streamerName} onChange={handleChange} />
-        <Button variant="contained" color="success" size="small" onClick={onClick}>
+        <TextField
+          id="standard-basic"
+          label="Streamer name"
+          variant="standard"
+          placeholder="ex: madnessalise"
+          value={streamerName}
+          onChange={handleChange}
+          sx={{
+            width: "100%",
+            position: "relative",
+            overflow: "auto",
+            marginBottom: '1%'
+          }} />
+        <Button
+          variant="contained"
+          color="success"
+          size="small"
+          onClick={onClick}
+          sx={{
+            width: "100%",
+            maxWidth: 360,
+            position: "relative",
+            overflow: "auto",
+            maxHeight: 300,
+          }}>
           ADD
         </Button>
       </div >

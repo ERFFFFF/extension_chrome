@@ -42,12 +42,23 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Button onClick={onClick} variant="contained" size="small">Watchers</Button>
+        <Button
+          onClick={onClick}
+          variant="contained"
+          size="small"
+          sx={{
+            width: "85%",
+            position: "relative",
+            overflow: "auto",
+          }}
+        >
+          Watchers
+        </Button>
       </header>
       <body className="App-body">
         {render ? <>
           <p className="descr">
-            This extension notify you when a streamer is online.
+            This extension notify when a streamer is online.
           </p>
           <p className="creator">Extension created by <a className="App-link" href="https://github.com/ERFFFFF">ERFFFFF</a>.</p>
           <p className="mention">App created thanks to the project of <a className="App-link" href="https://github.com/sivertschou/snow-extension">sivertschou</a></p>
@@ -70,7 +81,7 @@ const App = () => {
                 <ul>
                   {
                     Object.keys(watchers).map((key, index) => (
-                      <ListItem key={`${key}`} secondaryAction={
+                      <ListItem key={`${key}`} disabled={!Boolean(Object.values(watchers)[index])} secondaryAction={
                         <IconButton edge="end" aria-label="delete" onClick={() => { deleteElement(key) }} color="error">
                           <DeleteIcon />
                         </IconButton>
