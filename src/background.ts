@@ -37,8 +37,8 @@ setInterval(() => {
       console.log('result => ', result)
       console.log('key => ', key)
       console.log('index => ', index)
-      console.log('value => ', Object.values(result)[index])
-      console.log('value 2 => ', !Object.values(result)[index])
+      //console.log('value => ', Object.values(result)[index])
+      //console.log('value 2 => ', !Object.values(result)[index])
     });
     chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
   });

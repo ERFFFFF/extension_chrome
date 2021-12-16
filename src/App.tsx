@@ -13,7 +13,7 @@ import "./App.css";
 
 const App = () => {
   const [render, setRender] = useState(true)
-  const [watchers, setWatchers]: any = useState('')
+  const [watchers, setWatchers]: any = useState({})
 
   useEffect(() => {
     // update every miliseconds # to the backgound send the message
@@ -34,8 +34,10 @@ const App = () => {
     setRender(!render)
   };
   const onChange = (key: any, index: any) => {
-    setWatchers(!Boolean(Object.values(watchers)[index]))
-    //Object.values(watchers)[index] = !Boolean(Object.values(watchers)[index])
+    // sync with the back but we got some latency so we set setWatchers to reduce it.
+    chrome.storage.sync.set({ [key]: !Object.values(watchers)[index] });
+
+    setWatchers({ ...watchers, [key]: !Object.values(watchers)[index] });
   };
   const deleteElement = (element: string) => {
     chrome.runtime.sendMessage({ type: "DELETE_WATCHER", watcher: element })
