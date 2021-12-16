@@ -37,6 +37,8 @@ export const Stream = () => {
     <>
       <div className="buttonContainer" style={{ color: 'red' }}>
         <TextField
+          error
+          helperText="Incorrect entry."
           id="standard-basic"
           label="Streamer name"
           variant="standard"
