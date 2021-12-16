@@ -25,45 +25,50 @@ chrome.runtime.onMessage.addListener((message: MessageType) => {
   }
 });
 
+// Refresh streamers
 setInterval(() => {
   chrome.storage.sync.get(null, function (result) {
     watchers = result;
     chrome.runtime.sendMessage({ type: "REFRESH_UI_WATCHERS", watchers: watchers });
   });
-}, 1000)
+}, 500)
 // 1 sec = 1000ms
 
+// Send notification of streamers.
 setInterval(() => {
-  for (const [key] of Object.entries(watchers)) {
-    axios.get(env.URL_USER_CONNECTED + watchers[key])
-      .then(function (response: any) {
-        if (response.status == 200) {
-          chrome.notifications.create(watchers[key],
-            {
-              type: "basic",
-              title: "Shhhhhhhhhh",
-              message: `${watchers[key]} is online !`,
-              iconUrl: "./bonk.png",
+  for (const [key, value] of Object.entries(watchers)) {
+    console.log(value);
+    if (value) {
+      axios.get(env.URL_USER_CONNECTED + key)
+        .then(function (response: any) {
+          if (response.status == 200) {
+            chrome.notifications.create(key,
+              {
+                type: "basic",
+                title: "Shhhhhhhhhh",
+                message: `${key} is online !`,
+                iconUrl: "./bonk.png",
+              }
+            )
+            // if there is no event on the notif, create one
+            if (!chrome.notifications.onClicked.hasListeners()) {
+              chrome.notifications.onClicked.addListener(
+                function redirect() {
+                  window.open(env.URL_STREAM + key)
+                })
             }
-          )
-          // if there is no event on the notif, create one
-          if (!chrome.notifications.onClicked.hasListeners()) {
-            chrome.notifications.onClicked.addListener(
-              function redirect() {
-                window.open(env.URL_STREAM + watchers[key])
-              })
+            // delete the notification
+            chrome.notifications.clear(key)
           }
-          // delete the notification
-          chrome.notifications.clear(watchers[key])
-        }
-      })
-      .catch(function (error: any) {
-        // handle error
-        console.log(error);
-      })
+        })
+        .catch(function (error: any) {
+          // handle error
+          console.log(error);
+        })
+    }
   }
   // chrome.notifications.getAll((notifications) => {
   //   console.log(notifications)
   // })
-}, 600000);
+}, 1000);
 //600000
