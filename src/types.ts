@@ -12,9 +12,4 @@ interface DELETE_WATCHER {
   watcher: string;
 }
 
-interface GET_JSP {
-  type: "GET_JSP";
-}
-
-
-export type MessageType = ADD_WATCHER | REFRESH_UI_WATCHERS | GET_JSP | DELETE_WATCHER
+export type MessageType = ADD_WATCHER | REFRESH_UI_WATCHERS | DELETE_WATCHER

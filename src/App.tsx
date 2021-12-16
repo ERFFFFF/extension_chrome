@@ -22,9 +22,6 @@ const App = () => {
         case "REFRESH_UI_WATCHERS":
           setWatchers(message.watchers)
           break;
-        case "GET_JSP":
-          console.log("JSP frr")
-          break;
         default:
           break;
       }
