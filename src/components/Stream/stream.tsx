@@ -20,12 +20,12 @@ export const Stream = () => {
       .then(function (response) {
         if (response.status == 200) {
           setColored("success")
-          chrome.runtime.sendMessage({ type: "ADD_WATCHER", watcher: streamerName })
+          chrome.runtime.sendMessage({ type: "ADD_WATCHER", watcher: streamerName.toLowerCase() })
           chrome.notifications.create(
             {
               type: "basic",
               title: "Your streamer is now added to the list.",
-              message: `${streamerName} is added to the watcher list !`,
+              message: `${streamerName.toLowerCase()} is added to the watcher list !`,
               iconUrl: "./bonk.png"
             }
           )
