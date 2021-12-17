@@ -16,7 +16,7 @@ export const Stream = () => {
   }
 
   const onClick = () => {
-    axios.get(env.URL_USER_EXIST + streamerName)
+    axios.get(env.URL_USER_EXIST + streamerName.toLowerCase())
       .then(function (response) {
         if (response.status == 200) {
           setColored("success")
