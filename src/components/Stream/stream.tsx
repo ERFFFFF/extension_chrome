@@ -2,14 +2,16 @@ import React, { useState } from "react"
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react'
 const env = require('/env.json');
 export const Stream = () => {
 
   const [streamerName, setStreamerName] = useState("")
+  const [colored, setColored]: any = useState("primary")
 
   const handleChange = (e: any) => {
+    if (colored != "primary") {
+      setColored('primary')
+    }
     setStreamerName(e.target.value)
   }
 
@@ -17,6 +19,7 @@ export const Stream = () => {
     axios.get(env.URL_USER_EXIST + streamerName)
       .then(function (response) {
         if (response.status == 200) {
+          setColored("success")
           chrome.runtime.sendMessage({ type: "ADD_WATCHER", watcher: streamerName })
           chrome.notifications.create(
             {
@@ -29,16 +32,19 @@ export const Stream = () => {
         }
       })
       .catch(function (error) {
-        // handle error
-        console.log(error);
+        // ERROR 404
+        setColored("error")
       })
   };
   return (
     <>
-      <div className="buttonContainer" style={{ color: 'red' }}>
+      <div className="buttonContainer">
         <TextField
-          error
-          helperText="Incorrect entry."
+          error={colored == "error" ? true : false}
+          focused
+          required
+          color={colored}
+          helperText={colored == "error" ? "User does not exists." : ""}
           id="standard-basic"
           label="Streamer name"
           variant="standard"
