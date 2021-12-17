@@ -115,7 +115,7 @@ const App = () => {
           </List>
         }
       </body>
-      <footer className='App-footer'><span>v0.2</span></footer>
+      <footer className='App-footer'><span>v0.4</span></footer>
     </div >
   );
 };
