@@ -86,7 +86,17 @@ const App = () => {
                           <DeleteIcon />
                         </IconButton>
                       }>
-                        <ListItemText primary={`${key}`} />
+                        <ListItemText primary={`${key}`} sx={{
+                          width: "100%"
+                        }} />
+                        <ListItem button component="a" href="https://www.google.com" sx={{
+                          width: "75%",
+                          marginLeft: "15%"
+                        }}>
+                          <ListItemText primary="Link" sx={{
+                            color: "#0000ff",
+                          }} />
+                        </ListItem>
                         <Switch
                           // disabled
                           edge="end"
