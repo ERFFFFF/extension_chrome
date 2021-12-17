@@ -2,6 +2,10 @@ import React, { useState } from "react"
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 const env = require('/env.json');
 export const Stream = () => {
 
@@ -15,7 +19,8 @@ export const Stream = () => {
     setStreamerName(e.target.value)
   }
 
-  const onClick = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
     axios.get(env.URL_USER_EXIST + streamerName.toLowerCase())
       .then(function (response) {
         if (response.status == 200) {
@@ -39,38 +44,40 @@ export const Stream = () => {
   return (
     <>
       <div className="buttonContainer">
-        <TextField
-          error={colored == "error" ? true : false}
-          focused
-          required
-          color={colored}
-          helperText={colored == "error" ? "User does not exists." : ""}
-          id="standard-basic"
-          label="Streamer name"
-          variant="standard"
-          placeholder="ex: madnessalise"
-          value={streamerName}
-          onChange={handleChange}
-          sx={{
-            width: "100%",
-            position: "relative",
-            overflow: "auto",
-            marginBottom: '1%'
-          }} />
-        <Button
-          variant="contained"
-          color="success"
-          size="small"
-          onClick={onClick}
-          sx={{
-            width: "100%",
-            maxWidth: 360,
-            position: "relative",
-            overflow: "auto",
-            maxHeight: 300,
-          }}>
-          ADD
-        </Button>
+        <form onSubmit={(e) => { handleSubmit(e) }}>
+          <TextField
+            error={colored == "error" ? true : false}
+            focused
+            required
+            color={colored}
+            helperText={colored == "error" ? "User does not exists." : ""}
+            id="standard-basic"
+            label="Streamer name"
+            variant="standard"
+            placeholder="ex: madnessalise"
+            value={streamerName}
+            onChange={handleChange}
+            sx={{
+              width: "100%",
+              position: "relative",
+              overflow: "auto",
+              marginBottom: '1%'
+            }} />
+          <Button
+            type="submit"
+            variant="contained"
+            color="success"
+            size="small"
+            sx={{
+              width: "100%",
+              maxWidth: 360,
+              position: "relative",
+              overflow: "auto",
+              maxHeight: 300,
+            }}>
+            ADD
+          </Button>
+        </form>
       </div >
     </>
   );
