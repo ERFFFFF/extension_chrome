@@ -26,12 +26,14 @@ After the project has been built, a directory named `dist` has been created. You
 2. Navigate to `chrome://extensions`.
 3. Enable _Developer mode_.
 4. Click _Load unpacked_.
-5. Select the `dist` directory (do not forget to build your projects for the dist folder and modify your permission if necesssary in the /public/manifest.json).
+5. Select the `dist` directory
+  5.1 Downloaded from the release Tab.
+  5.2 Build your projects for the dist folder and modify your permission if necesssary in the /public/manifest.json.
 
 
 If the manifest/code is modified, you need to build again the project with `npm run-script build`
 
-Configuration File
+Configuration File (For 5.2 **ONLY**)
 -------------------------
 
 Create the configuration file at the root of the project and name it `env.json` with the following data :
