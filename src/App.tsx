@@ -8,7 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Switch from '@mui/material/Switch';
-
+const env = require('/env.json');
 import "./App.css";
 
 const App = () => {
@@ -87,9 +87,10 @@ const App = () => {
                         </IconButton>
                       }>
                         <ListItemText primary={`${key}`} sx={{
-                          width: "100%"
+                          width: "100%",
+                          color: true ? "" : "#ff0000" // TODO : if streamer is online color in green, if not color in red
                         }} />
-                        <ListItem button component="a" href="https://www.google.com" sx={{
+                        <ListItem button component="a" href={env.URL_STREAM + key} sx={{
                           width: "75%",
                           marginLeft: "15%"
                         }}>
@@ -115,7 +116,7 @@ const App = () => {
           </List>
         }
       </body>
-      <footer className='App-footer'><span>v0.4</span></footer>
+      <footer className='App-footer'><span>v0.5</span></footer>
     </div >
   );
 };
