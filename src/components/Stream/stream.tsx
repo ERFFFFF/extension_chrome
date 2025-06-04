@@ -2,7 +2,10 @@ import React, { useState } from "react"
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-const env = require('/env.json');
+const env = {
+  URL_USER_EXIST: process.env.URL_USER_EXIST as string,
+  URL_USER_CONNECTED: process.env.URL_USER_CONNECTED as string,
+};
 export const Stream = () => {
 
   const [streamerName, setStreamerName] = useState("")

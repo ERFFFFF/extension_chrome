@@ -1,8 +1,10 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import App from "./App";
 import "./popup.css";
 
-var mountNode = document.getElementById("popup");
-ReactDOM.render(<App />, mountNode);
+const mountNode = document.getElementById("popup");
+if (mountNode) {
+  createRoot(mountNode).render(<App />);
+}

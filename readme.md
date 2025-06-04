@@ -36,11 +36,10 @@ If the manifest/code is modified, you need to build again the project with `npm 
 Configuration File (For 5.2 **ONLY**)
 -------------------------
 
-Create the configuration file at the root of the project and name it `env.json` with the following data :
+Create a `.env` file at the root of the project with the following data:
 ```
-{
-  "URL_USER_CONNECTED": "https://cbjpeg.stream.highwebmedia.com/stream?room=",
-  "URL_USER_EXIST": "https://chaturbate.com/api/panel_context/",
-  "URL_STREAM": "https://chaturbate.com/",
-}
+URL_USER_CONNECTED=https://cbjpeg.stream.highwebmedia.com/stream?room=
+URL_USER_EXIST=https://chaturbate.com/api/panel_context/
+URL_STREAM=https://chaturbate.com/
+WATCHERS=anonymous1,anonymous2,anonymous3
 ```

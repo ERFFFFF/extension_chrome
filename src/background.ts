@@ -5,7 +5,11 @@
 
 import axios from 'axios';
 import { MessageType } from "./types";
-const env = require('/env.json');
+const env = {
+  URL_USER_CONNECTED: process.env.URL_USER_CONNECTED as string,
+  URL_USER_EXIST: process.env.URL_USER_EXIST as string,
+  URL_STREAM: process.env.URL_STREAM as string,
+};
 var watchers: any = {}
 chrome.runtime.onMessage.addListener((message: MessageType) => {
   switch (message.type) {
@@ -54,7 +58,7 @@ setInterval(() => {
             if (!chrome.notifications.onClicked.hasListeners()) {
               chrome.notifications.onClicked.addListener(
                 function redirect() {
-                  window.open(env.URL_STREAM + key)
+                  chrome.tabs.create({ url: env.URL_STREAM + key });
                 })
             }
             // delete the notification

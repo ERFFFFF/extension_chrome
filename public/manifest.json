@@ -1,14 +1,14 @@
 {
   "name": "StreamJerk",
   "description": "Chrome Extension used for notifications & checkings for chaturbate streamers.",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "1.1.0",
   "icons": {
     "16": "bonk16.png",
     "48": "bonk48.png",
     "128": "bonk128.png"
   },
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "bonk16.png",
       "48": "bonk48.png",
@@ -17,10 +17,7 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": true
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
@@ -32,7 +29,9 @@
       ]
     }
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "permissions": [
     "notifications",
     "storage"

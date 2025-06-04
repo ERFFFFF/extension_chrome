@@ -5,10 +5,13 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import Switch from '@mui/material/Switch';
-const env = require('/env.json');
+const env = {
+  URL_STREAM: process.env.URL_STREAM as string,
+};
 import "./App.css";
 
 const App = () => {
@@ -81,23 +84,29 @@ const App = () => {
                 <ul>
                   {
                     Object.keys(watchers).map((key, index) => (
-                      <ListItem key={`${key}`} disabled={!Boolean(Object.values(watchers)[index])} secondaryAction={
-                        <IconButton edge="end" aria-label="delete" onClick={() => { deleteElement(key) }} color="error">
-                          <DeleteIcon />
-                        </IconButton>
-                      }>
-                        <ListItemText primary={`${key}`} sx={{
-                          width: "100%",
-                          color: true ? "" : "#ff0000" // TODO : if streamer is online color in green, if not color in red
-                        }} />
-                        <ListItem button component="a" href={env.URL_STREAM + key} sx={{
+                      <ListItem
+                        key={`${key}`}
+                        secondaryAction={
+                          <IconButton edge="end" aria-label="delete" onClick={() => { deleteElement(key) }} color="error">
+                            <DeleteIcon />
+                          </IconButton>
+                        }
+                        disablePadding>
+                        <ListItemText
+                          primary={`${key}`}
+                          sx={{
+                            width: "100%",
+                            color: true ? "" : "#ff0000" // TODO : if streamer is online color in green, if not color in red
+                          }}
+                        />
+                        <ListItemButton component="a" href={env.URL_STREAM + key} disabled={!Boolean(Object.values(watchers)[index])} sx={{
                           width: "75%",
                           marginLeft: "15%"
                         }}>
                           <ListItemText primary="Link" sx={{
                             color: "#0000ff",
                           }} />
-                        </ListItem>
+                        </ListItemButton>
                         <Switch
                           // disabled
                           edge="end"
