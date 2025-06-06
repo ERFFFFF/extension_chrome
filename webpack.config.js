@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+require('dotenv').config();
 
 const config = {
   entry: {
@@ -70,7 +71,13 @@ const config = {
     new CopyPlugin({
       patterns: [{ from: "public", to: "." }],
     }),
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_URL_USER_CONNECTED': JSON.stringify(process.env.REACT_APP_URL_USER_CONNECTED),
+      'process.env.REACT_APP_URL_STREAM': JSON.stringify(process.env.REACT_APP_URL_STREAM),
+      'process.env.REACT_APP_DEFAULT_WATCHERS': JSON.stringify(process.env.REACT_APP_DEFAULT_WATCHERS)
+    })
   ],
+  devtool: "cheap-module-source-map",
   mode: "development" // production || development
 };
 
