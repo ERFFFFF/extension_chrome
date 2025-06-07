@@ -12,6 +12,11 @@ A Chrome extension for monitoring live streamers with real-time notifications an
 
 ## Setup
 
+### 0. Create a new project
+```bash
+$ npx degit https://github.com/sivertschou/react-typescript-chrome-extension-boilerplate.git#christmas <project-name>
+```
+
 ### 1. Install Dependencies
 ```bash
 npm install
